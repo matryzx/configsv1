@@ -1,0 +1,76 @@
+// -*- mode: jsonc -*-
+{
+    "layer": "top",
+    "position": "top",
+    "output": "DP-1",
+    "margin-top": 10,
+    "margin-left": 10,
+    "margin-right": 10,
+    "height": 30,
+    "spacing": 4,
+    // Choose the order of the modules
+    "modules-left": [
+        "hyprland/workspaces"
+    ],
+    "modules-center": [
+        "hyprland/window"
+    ],
+    "modules-right": [
+        "pulseaudio",
+	"custom/sep",
+        "network",
+	"custom/sep",
+        "cpu",
+	"custom/sep",
+        "memory",
+	"custom/sep",
+        "clock",
+	"custom/sep"
+    ],
+    // Modules configuration
+    "hyprland/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": true,
+        "warp-on-scroll": false,
+        "format": "{name}",
+	"persistent-workspaces": {
+		"*": 2
+	}
+    },
+        "clock": {
+        // "timezone": "America/New_York",
+	"format": "{:%H:%M}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "format-alt": "{:%Y-%m-%d}"
+    },
+    "cpu": {
+        "format": "CPU: {usage}%"
+    },
+    "memory": {
+        "format": "Mem: {used}"
+    },
+       "network": {
+        "format": "Online",
+        "format-disconnected": "Disconnected",
+	"tooltip": false    
+       },
+    "pulseaudio": {
+        // "scroll-step": 1, // %, can be a float
+        "format": "{volume}% {icon}",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol"
+    },
+    "custom/sep": {
+	"format": " ",
+	"interval": 0,
+	"tooltip": false
+}
+}

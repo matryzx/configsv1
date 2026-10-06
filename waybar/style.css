@@ -1,0 +1,77 @@
+@define-color bg	#212529;
+@define-color blk	#393837;
+@define-color red	#CF4141;
+@define-color grn	#C5DA94;
+@define-color ylw	#d5ad70;
+@define-color blu	#90B6BC;
+@define-color mag	#DF97A7;
+@define-color wht	#EAD9C7;
+
+* {
+    /* `otf-font-awesome` is required to be installed for icons */
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 13px;
+    /* font-weight: bold; */
+}
+
+window#waybar {
+    background-color: rgba(43, 48, 59, 0.5);
+    color: @wht;
+    border-radius: 5;
+}
+
+#workspaces button {
+    padding: 0 6px;
+    color: @ylw;
+    background: transparent;
+}
+#workspaces button.active {
+    color: @blu;
+    border-bottom: 3px @blu;
+}
+#workspaces button.empty {
+    color: @ylw;
+}
+#workspaces button.empty.active {
+    color: @blu;
+}
+
+#workspaces button.urgent {
+    color: @red;
+    font-weight: bold;
+}
+
+button:hover {
+    background: inherit;
+    box-shadow: inset 0 -3px #ffffff;
+}
+
+#clock,
+#cpu,
+#memory,
+#network,
+#pulseaudio,
+
+#clock {
+    color: @cyn;
+}
+
+#memory {
+    color: @mag;
+}
+
+#cpu {
+    color: @grn;
+}
+
+#network {
+    color: @blu;
+}
+
+#network.disconnected {
+    background-color: @red;
+}
+
+#pulseaudio {
+    color: @ylw;
+}
