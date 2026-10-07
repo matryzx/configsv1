@@ -23,7 +23,7 @@ hl.monitor({
 ---------------------
 
 -- Set programs that you use
-local terminal = "kitty"
+local terminal = "foot"
 local fileManager = "dolphin"
 local menu = "wofi --show drun"
 local browser = "zen-browser"
@@ -35,7 +35,8 @@ local discord = "vesktop"
 
 hl.on("hyprland.start", function()
 	hl.exec_cmd(terminal)
-	hl.exec_cmd("waybar & hyprpaper")
+	hl.exec_cmd("waybar & hyprpaper & swaync")
+	hl.exec_cmd("sudo systemctl start keyd")
 end)
 
 -------------------------------
@@ -61,7 +62,7 @@ hl.config({ ecosystem = { enforce_permissions = true } })
 hl.config({
 	general = {
 		gaps_in = 5,
-		gaps_out = 15,
+		gaps_out = 10,
 
 		border_size = 2,
 
@@ -71,7 +72,7 @@ hl.config({
 		},
 
 		-- Set to true to enable resizing windows by clicking and dragging on borders and gaps
-		resize_on_border = false,
+		resize_on_border = true,
 
 		-- Please see https://wiki.hypr.land/Configuring/Advanced-and-Cool/Tearing/ before you turn this on
 		allow_tearing = false,
@@ -80,7 +81,7 @@ hl.config({
 	},
 
 	decoration = {
-		rounding = 10,
+		rounding = 5,
 		rounding_power = 2,
 
 		-- Change transparency of focused and unfocused windows
@@ -207,6 +208,7 @@ hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit")) -- dwindle only
 hl.bind(mainMod .. " + SHIFT + Return", hl.dsp.exec_cmd(browser))
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd("pkill waybar || waybar"))
 hl.bind(mainMod .. " + D", hl.dsp.exec_cmd(discord))
+hl.bind(mainMod .. " + N", hl.dsp.exec_cmd(terminal .. " --hold neofetch"))
 
 -- Move focus with mainMod + arrow keys
 hl.bind(mainMod .. " + left", hl.dsp.focus({ direction = "left" }))
@@ -218,6 +220,9 @@ hl.bind(mainMod .. " + SHIFT + left", hl.dsp.window.move({ direction = "left" })
 hl.bind(mainMod .. " + SHIFT + right", hl.dsp.window.move({ direction = "right" }))
 hl.bind(mainMod .. " + SHIFT + up", hl.dsp.window.move({ direction = "up" }))
 hl.bind(mainMod .. " + SHIFT + down", hl.dsp.window.move({ direction = "down" }))
+
+hl.bind(mainMod .. " + PRINT", hl.dsp.exec_cmd("hyprshot -m region"))
+hl.bind("PRINT", hl.dsp.exec_cmd("hyprshot -m output"))
 
 -- Switch workspaces with mainMod + [0-9]
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]
@@ -302,6 +307,15 @@ hl.window_rule({
 	no_focus = true,
 })
 
+hl.window_rule({
+	name = "make-terminals-transparent",
+	match = {
+		class = "foot",
+	},
+
+	opacity = 0.8,
+})
+
 -- Layer rules also return a handle.
 -- local overlayLayerRule = hl.layer_rule({
 --     name  = "no-anim-overlay",
@@ -323,3 +337,6 @@ hl.workspace_rule({ workspace = "1", monitor = "HDMI-A-1" })
 hl.workspace_rule({ workspace = "2", monitor = "DP-1" })
 hl.workspace_rule({ workspace = "3", monitor = "HDMI-A-1" })
 hl.workspace_rule({ workspace = "4", monitor = "DP-1" })
+
+hl.env("HYPRCURSOR_THEME", "oblique-cursor-dark")
+hl.env("HYPRCURSOR_SIZE", "24")
